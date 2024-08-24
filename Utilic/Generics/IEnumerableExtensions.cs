@@ -23,6 +23,12 @@
             return false;
         } // end AnyRepeats()
 
+        /// <summary>
+        /// Perform an action on each value in an IEnumerable.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <param name="forEach"></param>
         public static void ForEach<T>(this IEnumerable<T> values, Action<T> forEach)
         {
             foreach (T t in values)
