@@ -1,6 +1,4 @@
-﻿using GSR.Utilic.Generic;
-
-namespace GSR.Utilic.Generics.Dictionary.Ordered
+﻿namespace GSR.Utilic.Generic
 {
     /// <summary>
     /// Extension methods related to <see cref="IOrderedDictionary{TKey, TValue}"/>s.
