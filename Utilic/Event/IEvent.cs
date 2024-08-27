@@ -3,7 +3,7 @@
     /// <summary>
     /// Contract for a generic event
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The handler type.</typeparam>
     public interface IEvent<T> where T : Delegate
     {
         /// <summary>
