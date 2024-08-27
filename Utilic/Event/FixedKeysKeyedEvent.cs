@@ -1,11 +1,13 @@
-﻿namespace GSR.Utilic.Event
+﻿using GSR.Utilic.Generic;
+
+namespace GSR.Utilic.Event
 {
     /// <summary>
     /// Simple <see cref="IKeyedEvent{TKey, THandler}"/> implemenation.
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TDelegate"></typeparam>
-    public class KeyedEvent<TKey, TDelegate> : IKeyedEvent<TKey, TDelegate>
+    public class FixedKeysKeyedEvent<TKey, TDelegate> : IKeyedEvent<TKey, TDelegate>
         where TDelegate : Delegate
         where TKey : notnull
     {
@@ -15,8 +17,12 @@
 
 
         /// <inheritdoc/>
-        public KeyedEvent(out IDictionary<TKey, IList<TDelegate>> handlers)
+        public FixedKeysKeyedEvent(IEnumerable<TKey> keys, out IDictionary<TKey, IList<TDelegate>> handlers)
         {
+            if (keys.AnyRepeats())
+                throw new ArgumentException("Duplicate key encountered.");
+
+            keys.ForEach((x) => AddKey(x));
             handlers = _handlers;
         } // end constructor
 
@@ -28,14 +34,14 @@
             get
             {
                 if (!_events.ContainsKey(key))
-                    AddKey(key);
+                    throw new KeyNotFoundException($"No event for the key: \"{key}\"");
 
                 return _events[key];
             }
             set { }
         } // end indexer
 
-        private void AddKey(TKey key) 
+        private void AddKey(TKey key)
         {
             _events[key] = new Event<TDelegate>(out IList<TDelegate> x);
             _handlers[key] = x;
