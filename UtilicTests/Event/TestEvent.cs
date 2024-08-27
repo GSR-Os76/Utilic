@@ -1,7 +1,7 @@
 ﻿using GSR.Utilic.Event;
 using GSR.Utilic.Generic;
 
-namespace UtilicTests.Event
+namespace GSR.Tests.Utilic.Event
 {
     [TestClass]
     public class TestEvent
@@ -32,22 +32,20 @@ namespace UtilicTests.Event
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        [DataRow("nuhi_")]
-        public void TestAddDuplicate(string expectation)
+        public void TestAddDuplicate()
         {
             Event<Action<string>> e = new(out IList<Action<string>> handlers);
-            Action<string> a = (s) => Assert.AreEqual(s, expectation);
+            Action<string> a = (s) => Assert.AreEqual(s, s);
             _ = (e) + a;
             _ = (e) + a;
         } // end TestAddDuplicate()
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        [DataRow("nuhi_")]
-        public void TestAddDuplicateI(string expectation)
+        public void TestAddDuplicateI()
         {
             IEvent<Action<string>> e = new Event<Action<string>>(out IList<Action<string>> handlers);
-            Action<string> a = (s) => Assert.AreEqual(s, expectation);
+            Action<string> a = (s) => Assert.AreEqual(s, s);
             _ = (e) + a;
             _ = (e) + a;
         } // end TestAddDuplicateI()
@@ -55,11 +53,10 @@ namespace UtilicTests.Event
 
 
         [TestMethod]
-        [DataRow("nuhi_")]
-        public void TestRemove(string expectation)
+        public void TestRemove()
         {
             Event<Action<string>> e = new(out IList<Action<string>> handlers);
-            Action<string> a = (s) => Assert.AreEqual(s, expectation);
+            Action<string> a = (s) => Assert.AreEqual(s, s);
             _ = (e) + a;
             _ = (e) - a;
 
@@ -67,35 +64,32 @@ namespace UtilicTests.Event
         } // end TestRemove()
 
         [TestMethod]
-        [DataRow("nuhi_")]
-        public void TestRemoveI(string expectation)
+        public void TestRemoveI()
         {
             IEvent<Action<string>> e = new Event<Action<string>>(out IList<Action<string>> handlers);
-            Action<string> a = (s) => Assert.AreEqual(s, expectation);
-            _ = (e) + a;
-            _ = (e) - a;
+            Action<string> a = (s) => Assert.AreEqual(s, s);
+            e += a;
+            e -= a;
 
             Assert.AreEqual(0, handlers.Count);
         } // end TestRemoveI()
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        [DataRow("nuhi_")]
-        public void TestRemoveUnadded(string expectation)
+        public void TestRemoveUnadded()
         {
             Event<Action<string>> e = new(out IList<Action<string>> handlers);
-            Action<string> a = (s) => Assert.AreEqual(s, expectation);
-            _ = (e) - a;
+            Action<string> a = (s) => Assert.AreEqual(s, s);
+            e -= a;
         } // end TestRemoveUnadded()
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        [DataRow("nuhi_")]
-        public void TestRemoveUnaddedI(string expectation)
+        public void TestRemoveUnaddedI()
         {
             IEvent<Action<string>> e = new Event<Action<string>>(out IList<Action<string>> handlers);
-            Action<string> a = (s) => Assert.AreEqual(s, expectation);
-            _ = (e) - a;
+            Action<string> a = (s) => Assert.AreEqual(s, s);
+            e -= a;
         } // end TestRemoveUnaddedI()
 
     } // end class

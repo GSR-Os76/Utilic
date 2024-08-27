@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TDelegate"></typeparam>
-    public class KeyedEvent<TKey, TDelegate> : IKeyedEvent<TKey, TDelegate> 
+    public class KeyedEvent<TKey, TDelegate> : IKeyedEvent<TKey, TDelegate>
         where TDelegate : Delegate
         where TKey : notnull
     {
@@ -15,7 +15,7 @@
 
 
         /// <inheritdoc/>
-        public KeyedEvent(out IDictionary<TKey, IList<TDelegate>> handlers) 
+        public KeyedEvent(out IDictionary<TKey, IList<TDelegate>> handlers)
         {
             handlers = _handlers;
         } // end constructor
@@ -23,18 +23,18 @@
 
 
         /// <inheritdoc/>
-        public IEvent<TDelegate> this[TKey key] 
+        public IEvent<TDelegate> this[TKey key]
         {
-            get 
+            get
             {
-                if (!_events.ContainsKey(key)) 
+                if (!_events.ContainsKey(key))
                 {
                     _events[key] = new Event<TDelegate>(out IList<TDelegate> x);
                     _handlers[key] = x;
                 }
-
                 return _events[key];
             }
+            set { }
         } // end indexer
 
     } // end class

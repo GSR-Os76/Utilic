@@ -22,14 +22,13 @@
 
 
 
-#warning can you overload +=/-=? I'd been assuming that it was subsumed for years.
         /// <summary>
         /// Subscribe an event handler to the event.
         /// </summary>
         public static IEvent<T> operator +(IEvent<T> e, T handler) => e.Subscribe(handler);
 
         /// <summary>
-        /// Unsubscribe an event handler to the event.
+        /// Unsubscribe an event handler from the event.
         /// </summary>
         public static IEvent<T> operator -(IEvent<T> e, T handler) => e.Unsubscribe(handler);
 

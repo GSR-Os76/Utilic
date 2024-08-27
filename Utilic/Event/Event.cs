@@ -43,12 +43,12 @@
         /// <summary>
         /// Subscribe an event handler to the event.
         /// </summary>
-        public static Event<T> operator +(Event<T> e, T handler) => (Event<T>)e.Subscribe(handler);
+        public static Event<T> operator +(Event<T> e, T handler) => (Event<T>)(((IEvent<T>)e) + handler);
 
         /// <summary>
-        /// Unsubscribe an event handler to the event.
+        /// Unsubscribe an event handler from the event.
         /// </summary>
-        public static Event<T> operator -(Event<T> e, T handler) => (Event<T>)e.Unsubscribe(handler);
+        public static Event<T> operator -(Event<T> e, T handler) => (Event<T>)(((IEvent<T>)e) - handler);
 
     } // end class
 } // end namespace
