@@ -12,10 +12,10 @@
         where TInnerKey : notnull
     {
         /// <inheritdoc/>
-        public IEvent<THandler> this[TOuterKey key] 
+        public IEvent<THandler> this[TOuterKey key]
         {
             get => _internal[_mapper.Invoke(key)];
-            set => _internal[_mapper.Invoke(key)] = value; 
+            set => _internal[_mapper.Invoke(key)] = value;
         }
 
 
@@ -26,7 +26,7 @@
 
 
         /// <inheritdoc/>
-        public MappedKeyKeyedEvent(IKeyedEvent<TInnerKey, THandler> @internal, Func<TOuterKey, TInnerKey> mapper)
+        public MappedKeyKeyedEvent(Func<TOuterKey, TInnerKey> mapper, IKeyedEvent<TInnerKey, THandler> @internal)
         {
             _internal = @internal.IsNotNull();
             _mapper = mapper.IsNotNull();
