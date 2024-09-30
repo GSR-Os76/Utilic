@@ -23,6 +23,9 @@
             return false;
         } // end AnyRepeats()
 
+
+
+#warning Next breaking change: this one should have been instead "ForEvery" as well, "ForEachS" should just be "ForEach"
         /// <summary>
         /// Perform an action on each value in an IEnumerable.
         /// </summary>
@@ -34,6 +37,52 @@
             foreach (T t in values)
                 forEach.Invoke(t);
         } // end ForEach()
+
+        /// <summary>
+        /// Perform an action on each value in an IEnumerable, providing the index.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <param name="forEach"></param>
+        public static void ForEvery<T>(this IEnumerable<T> values, Action<T, int> forEach)
+        {
+            int i = 0;
+            foreach (T t in values)
+                forEach.Invoke(t, i++);
+        } // end ForEach()
+
+
+
+        /// <summary>
+        /// Perform an action on each value in an IEnumerable, statefully.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <param name="forEach"></param>
+        public static IEnumerable<T> ForEachS<T>(this IEnumerable<T> values, Action<T> forEach)
+        {
+            foreach (T t in values)
+            {
+                forEach.Invoke(t);
+                yield return t;
+            }
+        } // end ForEachS()
+
+        /// <summary>
+        /// Perform an action on each value in an IEnumerable, providing the index, statefully.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <param name="forEach"></param>
+        public static IEnumerable<T> ForEachS<T>(this IEnumerable<T> values, Action<T, int> forEach)
+        {
+            int i = 0;
+            foreach (T t in values)
+            {
+                forEach.Invoke(t, i++);
+                yield return t;
+            }
+        } // end ForEachS()
 
     } // end class
 } // end namespace
